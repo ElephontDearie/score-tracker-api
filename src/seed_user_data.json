@@ -1,0 +1,38 @@
+[
+    {
+        "username": "qaUser1",
+        "password": "coldWinter2021",
+        "email": "qaUser1@qa.com",
+        "userLevel": "Restricted"
+    },
+    {
+        "username": "qaUser2",
+        "password": "coldWinter2022",
+        "email": "qaUser2@qa.com",
+        "userLevel": "Restricted"
+    },
+    {
+        "username": "qaUser3",
+        "password": "coldWinter2023",
+        "email": "qaUser3@qa.com",
+        "userLevel": "Restricted"
+    },
+    {
+        "username": "qaUser4",
+        "password": "coldWinter2024",
+        "email": "qaUser4@qa.com",
+        "userLevel": "Limited"
+    },
+    {
+        "username": "qaUser5",
+        "password": "coldWinter2025",
+        "email": "qaUser5@qa.com",
+        "userLevel": "Limited"
+    },
+    {
+        "username": "qaUser6",
+        "password": "coldWinter2026",
+        "email": "qaUser6@qa.com",
+        "userLevel": "Unlimited"
+    }
+]

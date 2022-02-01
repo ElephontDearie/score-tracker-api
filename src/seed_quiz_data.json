@@ -1,0 +1,423 @@
+[
+    {
+        "topic": "Computer Engineering",
+        "name": "Fundamental Computer Answers",
+        "difficultyLevel": "easy",
+        "questions":[
+            {
+                "question": "The term ‘Computer’ is derived from",
+                "options": {
+                    "A": "Latin",
+                    "B": "German",
+                    "C": "French"
+                },
+                "answer": {"A": "Latin"}
+            },
+            {
+                "question": "Who is the inventor of the “Difference Engine”?",
+                "options": {
+                    "A": "Allen Turing",
+                    "B": "Charles Babbage",
+                    "C": "Simur Cray d. Augusta Adaming"
+                },
+                "answer": {"B": "Charles Babbage"}
+            },
+            {
+                "question": "Who is the father of Computer?”?",
+                "options": {
+                    "A": "Allen Turing",
+                    "B": "Charles Babbage",
+                    "C": "Simur Cray d. Augusta Adaming"
+                },
+                "answer": {"B": "Charles Babbage"}
+            },
+            {
+                "question": "Who is the father of Computer Science?”?",
+                "options": {
+                    "A": "Allen Turing",
+                    "B": "Charles Babbage",
+                    "C": "Simur Cray d. Augusta Adaming"
+                },
+                "answer": {"A": "Allen Turing"}
+            },
+            {
+                "question": "Who is the father of the personal computer?”?",
+                "options": {
+                    "A": "Edward Robert",
+                    "B": "Allen Turing",
+                    "C": "Charles Babbage"
+                },
+                "answer": {"A": "Edward Robert"}
+            },
+            {
+                "question": "A CPU contains”?",
+                "options": {
+                    "A": "a card reader and a printing device",
+                    "B": "an analytical engine and a control unit",
+                    "C": "a control unit and an arithmetic logic unit"
+                },
+                "answer": {"C": "a control unit and an arithmetic logic unit"}
+            },
+            {
+                "question": "Which of the following controls the process of interaction between the user and the operating system?",
+                "options": {
+                    "A": "User interface",
+                    "B": "Language translator",
+                    "C": "Platform"
+                },
+                "answer": {"A": "User interface"}
+            },
+            {
+                "question": "The first computers were programmed using",
+                "options": {
+                    "A": "assembly language",
+                    "B": "machine language",
+                    "C": "source code"
+                },
+                "answer": {"B": "machine language"}
+            },
+            {
+                "question": ".... is a combination of hardware and software that facilitates the sharing of information between computing devices.",
+                "options": {
+                    "A": "network",
+                    "B": "peripheral",
+                    "C": "expansion board"
+                },
+                "answer": {"A": "network"}
+            },
+            {
+                "question": "Coded entries which are used to gain access to a computer system are called",
+                "options": {
+                    "A": "Entry codes",
+                    "B": "Passwords",
+                    "C": "Security commands"
+                },
+                "answer": {"B": "Passwords"}
+            }
+        ]
+    },
+    {
+        "topic": "Computer Engineering",
+        "name": "General Computer Knowledge",
+        "difficultyLevel": "easy",
+        "questions":[
+            {
+                "question": "Which of the following is/are characteristics of Computer?",
+                "options": {
+                    "A": "Diligence",
+                    "B": "Versatility & Reliability",
+                    "C": "All of the Above"
+                },
+                "answer": {"C": "All of the Above"}
+            },
+            {
+                "question": "Faulty inputs lead to faulty results. This is known as _______",
+                "options": {
+                    "A": "None of these",
+                    "B": "Versatility",
+                    "C": "GIGO"
+                },
+                "answer": {"C": "GIGO"}
+            },
+            {
+                "question": "GIGO stands for______",
+                "options": {
+                    "A": "Garbage In Garbage Out",
+                    "B": "Gateway In Gateway Out",
+                    "C": "Gopher In Gopher Out"
+                },
+                "answer": {"A": "Garbage In Garbage Out"}
+            },
+            {
+                "question": "The capacity to perform multiple tasks simultaneously is called",
+                "options": {
+                    "A": "Diligence",
+                    "B": "Versatility",
+                    "C": "Reliability"
+                },
+                "answer": {"B": "Versatility"}
+            },
+            {
+                "question": "A computer does not suffer from tiredness and lack of concentration. This is known as _______",
+                "options": {
+                    "A": "Diligence",
+                    "B": "Versatility",
+                    "C": "Reliability"
+                },
+                "answer": {"A": "Diligence"}
+            },
+            {
+                "question": "First Generation computers used ______ for Circuitry and ________ for memory",
+                "options": {
+                    "A": "Transistor and Magnetic Core",
+                    "B": "IC and Magnetic Memory",
+                    "C": "Vacuum tubes and Magnetic drum"
+                },
+                "answer": {"C": "Vacuum tubes and Magnetic drum"}
+            },
+            {
+                "question": "Second Generation computers were based on _______",
+                "options": {
+                    "A": "IC",
+                    "B": "Vacuum tube",
+                    "C": "Transistor"
+                },
+                "answer": {"C": "Transistor"}
+            },
+            {
+                "question": "FLOPS stands for______",
+                "options": {
+                    "A": "Floating Point Operation Per Second",
+                    "B": "File Processing Operation Per Second",
+                    "C": "Floating Processing Operation Per Second"
+                },
+                "answer": {"A": "Floating Point Operation Per Second"}
+            },
+            {
+                "question": "Which language was used to program Second Generation",
+                "options": {
+                    "A": "Binary Coded language",
+                    "B": "Assembly language",
+                    "C": "Machine Language"
+                },
+                "answer": {"B": "Assembly language"}
+            },
+            {
+                "question": "EDSAC stands for________",
+                "options": {
+                    "A": "Electronic Delay Storage Automatic Computer",
+                    "B": "Electronic Discrete Storage Automatic Computer",
+                    "C": "Electronic Delay Serial Automatic Computer"
+                },
+                "answer": {"A": "Electronic Delay Storage Automatic Computer"}
+            }
+        ]
+    },
+    {
+        "topic": "Economics",
+        "name": "Explain Economics",
+        "difficultyLevel": "easy",
+        "questions": [
+            {
+                "id": 1,
+                "question": "What is economics",
+                "options": {
+                    "A": "Economics is the study of the ALLOCATION of SCARCE resources to meet UNLIMITED human wants.",
+                    "B": "Economics is the study of the MANAGEMENT of SCARCE resources to meet NECESSARY human wants.",
+                    "C": "Economics is the study of the PROLIFERATION of AVAILABLE resources to meet UNLIMITED human wants."
+                },
+                "answer": {
+                    "A": "Economics is the study of the ALLOCATION of SCARCE resources to meet UNLIMITED human wants."
+                }
+            },
+            {
+                "id": 2,
+                "question": "What is microeconomics?",
+                "options": {
+                    "A": "concerned with decision-making by individual economic agents such as firms and consumers.",
+                    "B": "concerned with decision-making by local economic agents such as local governments and consumers.",
+                    "C": "concerned with decision-making by global economic agents such as government authorities and international consumers."
+                },
+                "answer": {
+                    "A": "concerned with decision-making by individual economic agents such as firms and consumers."
+                }
+            },
+            {
+                "id": 3,
+                "question": "The fundamental problem faced by all societies is:",
+                "options": {
+                    "A": "unemployment",
+                    "B": "scarcity",
+                    "C": "inequality"
+                },
+                "answer": {
+                    "B": "scarcity"
+                }
+            },
+            {
+                "id": 4,
+                "question": "Capitalism refers to:",
+                "options": {
+                    "A": "the use of markets",
+                    "B": "government ownership of capital goods",
+                    "C": "private ownership of capital goods"
+                },
+                "answer": {
+                    "C": "private ownership of capital goods"
+                }
+            },
+            {
+                "id": 5,
+                "question": "The agricultural price support program is an example of",
+                "options": {
+                    "A": "a price ceiling",
+                    "B": "a price floor",
+                    "C": "equilibrium pricing"
+                },
+                "answer": {
+                    "B": "a price floor"
+                }
+            },
+            {
+                "id": 6,
+                "question": "A price ceiling will cause",
+                "options": {
+                    "A": "shortages",
+                    "B": "surpluses",
+                    "C": "equilibrium"
+                },
+                "answer": {
+                    "A": "shortages"
+                }
+            },
+            {
+                "id": 7,
+                "question": "A price floor will cause",
+                "options": {
+                    "A": "shortages",
+                    "B": "surpluses",
+                    "C": "equilibrium"
+                },
+                "answer": {
+                    "B": "surpluses"
+                }
+            },
+            {
+                "id": 8,
+                "question": "Which of the following is a characteristic of pure monopoly",
+                "options": {
+                    "A": "one product seller",
+                    "B": "low barriers to entry",
+                    "C": "close substitute products"
+                },
+                "answer": {
+                    "A": "one product seller"
+                }
+            },
+            {
+                "id": 9,
+                "question": "The goal of a pure market economy is to best meet the desires of",
+                "options": {
+                    "A": "consumers",
+                    "B": "companies",
+                    "C": "the government"
+                },
+                "answer": {
+                    "A": "consumers"
+                }
+            },
+            {
+                "id": 10,
+                "question": "The demand for labor is the same as",
+                "options": {
+                    "A": "wage",
+                    "B": "marginal cost",
+                    "C": "marginal revenue product"
+                },
+                "answer": {
+                    "C": "marginal revenue product"
+                }
+            }
+        ]
+    },
+    {
+        "topic": "Economics",
+        "name": "Economics Definitions",
+        "difficultyLevel": "intermediate",
+        "questions":[
+            {
+                "question": "An incentive",
+                "options": {
+                    "A": "is the opposite of a tradeoff",
+                    "B": "could be a reward but could not be a penalty.",
+                    "C": "could be either a reward or a penalty."
+                },
+                "answer": {"C": "could be either a reward or a penalty"}
+            },
+            {
+                "question": "The most fundamental economic problem is",
+                "options": {
+                    "A": "security",
+                    "B": "scarcity",
+                    "C": "health"
+                },
+                "answer": {"B": "scarcity"}
+            },
+            {
+                "question": "Economics is best defined as the study of how people, businesses, governments, and societies",
+                "options": {
+                    "A": "make choices to cope with scarcity",
+                    "B": "choose abundance over scarcity",
+                    "C": "attain wealth."
+                },
+                "answer": {"A": "make choices to cope with scarcity"}
+            },
+            {
+                "question": "Economists point out that scarcity confronts",
+                "options": {
+                    "A": "the rich but not the poor.",
+                    "B": "the poor but not the rich.",
+                    "C": "both the poor and the rich."
+                },
+                "answer": {"C": "both the poor and the rich."}
+            },
+            {
+                "question": "Scarcity requires that people must",
+                "options": {
+                    "A": "trade",
+                    "B": "compete",
+                    "C": "make choices"
+                },
+                "answer": {"C": "make choices"}
+            },
+            {
+                "question": "As an economic concept, scarcity applies to",
+                "options": {
+                    "A": "neither time nor money",
+                    "B": "both money and time",
+                    "C": "time but not money"
+                },
+                "answer": {"B": "both money and time"}
+            },
+            {
+                "question": "Which is the most accurate definition of the study of economics?",
+                "options": {
+                    "A": "the distribution of surplus goods to those in need.",
+                    "B": "the choices we make because of scarcity.",
+                    "C": "affluence in a morally bankrupt world."
+                },
+                "answer": {"B": "the choices we make because of scarcity."}
+            },
+            {
+                "question": "Which of the following is a macroeconomic topic?",
+                "options": {
+                    "A": "why plumbers earn more than janitors",
+                    "B": "the reasons for the rise in average prices",
+                    "C": "the reasons for a rise in the price of orange juice"
+                },
+                "answer": {"B": "the reasons for the rise in average prices"}
+            },
+            {
+                "question": "Which of the following is a microeconomic topic?",
+                "options": {
+                    "A": "the reasons for a decline in average prices",
+                    "B": "the reasons why Kathy buys less orange juice",
+                    "C": "the cause of why total employment may decrease"
+                },
+                "answer": {"B": "the reasons why Kathy buys less orange juice"}
+                
+            },
+            {
+                "question": "Microeconomics focuses on all of the following EXCEPT",
+                "options": {
+                    "A": "the effect of increasing the money supply on inflation",
+                    "B": "the purchasing decisions that an individual consumer makes",
+                    "C": "the hiring decisions that a business makes"
+                },
+                "answer": {"A": "the effect of increasing the money supply on inflation"}
+            }
+        ]
+        
+    
+    }
+]
