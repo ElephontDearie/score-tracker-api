@@ -4,7 +4,7 @@ import { Score } from '../models/score';
 import { Router } from 'express';
 import { Quiz } from '../models/quiz';
 
-export const scoreRouter = Router();
+const scoreRouter = Router();
 
 scoreRouter.patch('/:username/score', async (req, res) => {
     const { username } = req.params;
@@ -39,3 +39,5 @@ scoreRouter.patch('/:username/score', async (req, res) => {
     return res.status(401).send("You are not a user. Please register or sign in to save your score.");
 
 })
+
+export { scoreRouter };

@@ -6,6 +6,7 @@ import { ScoreTrackerUserInfo } from '../models/user_info';
 import { Score } from '../models/score';
 import fs from 'fs';
 import path from 'path';
+import { MongoError, MongoServerError } from 'mongodb';
 
 interface UserInputType {
     "username": string;
@@ -14,9 +15,9 @@ interface UserInputType {
     "userLevel": UserLevel;
 }
 
-export const userRouter = Router();
+const userRouter = Router();
 
-const encryptPassword = async (password: string) => bcrypt.hash(password, 10);
+export const encryptPassword = async (password: string) => bcrypt.hash(password, 10);
 
 userRouter.post('/login', async (req, res) => {
     const { username, password } = req.body;
@@ -26,6 +27,8 @@ userRouter.post('/login', async (req, res) => {
                 if (user){
                     const newPassword = await encryptPassword(password);
                     const passwordMatchesStored = await bcrypt.compare(password, user.password);
+                    console.log(newPassword);
+                    console.log(user.password);
 
                     if (!passwordMatchesStored) {
                         return res.status(401).send('Incorrect password. Please try again.')
@@ -64,9 +67,11 @@ userRouter.post('/register', async (req: Request, res: Response) => {
             email: user.email,
             userLevel: user.userLevel
         });
-    } catch (err) {
-        console.log(err);
-        return res.status(500).send(err);
+    } catch (err: any) {
+        // err && err.code == 
+        // instanceof MongoError
+        const statusCode = err  &&  err.code == '11000' ? 409 : 500;
+        return res.status(statusCode).send(err);
     }   
 
 })
@@ -89,3 +94,4 @@ export const hydrateUserData = async (filePath: string) => {
         await newUser.save();
     });
 }
+export { userRouter };

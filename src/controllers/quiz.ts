@@ -7,7 +7,7 @@ import { ScoreTrackerUserInfo } from '../models/user_info';
 import { Score } from '../models/score';
 
 
-export const quizRouter = Router();
+const quizRouter = Router();
 
 type UpdateQuizPropertyKey = 'name' | 'topic' | 'difficultyLevel';
 
@@ -27,29 +27,44 @@ interface QuizInputType {
 /** router paths to get, post, edit, or delete quizzes */
 
 quizRouter.get('/', async (req: Request, res: Response) => 
-    // await Quiz.deleteMany();
+    // await Quiz.deleteMany().then(quizzes => res.status(200).json({quizzes}))
+    //             .catch(err => res.status(500).send(err)))
     Quiz.find().then(quizzes => res.status(200).json({quizzes}))
                 .catch(err => res.status(500).send(err)))
    
 quizRouter.post('/', async (req: Request, res: Response) => {
     const { name, topic, difficultyLevel, questions } = req.body;
-    const newQuiz = new Quiz(req.body);
-    await newQuiz.save();
-    return res.status(201).json(newQuiz);
+    const newQuiz = new Quiz({
+        name,
+        topic,
+        difficultyLevel,
+        questions
+    });
+    try {
+        await newQuiz.save();
+        return res.status(201).json(newQuiz)
+    }
+    catch (err) {
+        return res.status(500).send(err)
+    }
+    
 })
 
 quizRouter.patch('/:id/name', async (req: Request, res: Response) => {
     const { id } = req.params;
     const { newValue } = req.body;
-
-    const retrievedQuiz = await Quiz.findById({_id: id});    // .updateOne({_id: id}, {$set: {propToUpdate: newValue}})
-
-    if (retrievedQuiz) {
-        retrievedQuiz.name = newValue;
-        await retrievedQuiz.save();
-        return res.status(204);
+    try {
+        const retrievedQuiz = await Quiz.findById(id);
+        if (retrievedQuiz) {
+            retrievedQuiz.name = newValue;
+            await retrievedQuiz.save();
+            return res.status(204).send();
+        }
+        return res.status(404).send('The specified Quiz object does not exist.')
+    } catch (err) {
+        return res.status(500).send(err)
     }
-    return res.status(404).send('The specified Quiz object does not exist.')
+    
 })
 
 quizRouter.patch('/:id/topic', async (req: Request, res: Response) => {
@@ -61,7 +76,7 @@ quizRouter.patch('/:id/topic', async (req: Request, res: Response) => {
     if (retrievedQuiz) {
         retrievedQuiz.topic = newValue;
         await retrievedQuiz.save();
-        return res.status(204);
+        return res.status(204).send();
     }
     return res.status(404).send('The specified Quiz object does not exist.')
 })
@@ -75,7 +90,7 @@ quizRouter.patch('/:id/level', async (req: Request, res: Response) => {
     if (retrievedQuiz) {
         retrievedQuiz.difficultyLevel = newValue;
         await retrievedQuiz.save();
-        return res.status(204);
+        return res.status(204).send();
     }
     return res.status(404).send('The specified Quiz object does not exist.')
 })
@@ -84,7 +99,7 @@ quizRouter.delete('/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
         await Quiz.deleteOne({_id: id});
-        return res.status(204);
+        return res.status(204).send();
     } catch (err) {
         return res.status(500).send(err);
     }
@@ -116,7 +131,13 @@ quizRouter.get('/:id', async (req: Request, res: Response) => {
 /** router paths to post, delete or edit quiz questions */
 quizRouter.post('/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
-    const newQuestion = new Question(req.body);
+    const { question, answer, options } = req.body;
+    const newQuestion = new Question({
+        quizId: id,
+        question,
+        answer,
+        options
+    });
     try {
         await newQuestion.save();
         return res.status(201).json(newQuestion);
@@ -127,11 +148,12 @@ quizRouter.post('/:id', async (req: Request, res: Response) => {
 
 quizRouter.delete('/:id/:questionId', async (req: Request, res: Response) => {
     const { id, questionId } = req.params;
+    
     try {
-        await Question.deleteOne({_id: questionId});
-        return res.status(204);
+        await Question.deleteOne({ _id: questionId })
+        return res.status(204).send()
     } catch (err) {
-        return res.status(500).send(err);
+        return res.status(500).send(err)
     }
 })
 
@@ -144,7 +166,7 @@ quizRouter.patch('/:id/:questionId/question', async (req: Request, res: Response
     if (retrievedQuestion) {
         retrievedQuestion.question = newValue;
         await retrievedQuestion.save();
-        return res.status(204);
+        return res.status(204).send();
     }
     return res.status(404).send('The specified Quiz object does not exist.')
 })
@@ -163,5 +185,8 @@ export const hydrateQuizData = async (filePath: string) => {
     });
 }
 
-const correctedTopicString = (topicString: string):string => topicString.toString().replace('_', ' ');
+export const correctedTopicString = (topicString: string):string => topicString.toString().split('_')
+                                                                    .map(word => word.replace('_', ' '))
+                                                                    .join(' ');
 
+export { quizRouter};

@@ -28,8 +28,8 @@ type Answer = {
 
 export interface QuizModel extends Document {
     // quizId: Types.ObjectId;
-    topic: {type: QuizTopic, required: true};
-    name: {type: string, required: true};
+    topic: string;
+    name: string;
     difficultyLevel: QuizDifficulty,
     questions: QuizQuestion[]
 }
@@ -46,7 +46,7 @@ const QuizQuestionSchema = new Schema({
 const QuizSchema = new Schema({
     // quizId: Types.ObjectId,
     name: {type: String, required: true, unique: true},
-    topic: String,
+    topic: {type: String, required: true, unique: false},
     difficultyLevel: {type: String, enum: QuizDifficulty, default: QuizDifficulty.Easy},
     questions: {type: [QuizQuestionSchema]}
 });

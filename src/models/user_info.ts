@@ -8,7 +8,7 @@ interface UserInfo extends Document {
     maternalMaidenName?: string;
 }
 
-interface UserInfoModel extends UserInfo {
+export interface UserInfoModel extends UserInfo {
     getQuizzesCompleted: () => number;
 }
 

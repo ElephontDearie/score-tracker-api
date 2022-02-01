@@ -17,7 +17,7 @@ export enum UserLevel {
 }
 
 
-interface UserModel extends User {
+export interface UserModel extends User {
     getScore: () => number;
 }
 
