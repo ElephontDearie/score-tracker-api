@@ -167,9 +167,7 @@ quizRouter.delete('/:id/:questionId', async (req: Request, res: Response) => {
     })
 })
 
-const isNumber = (suppliedObject: number | null): suppliedObject is number => { 
-    return suppliedObject != null;
-}
+
 
 quizRouter.patch('/:id/:questionId/question', async (req: Request, res: Response) => {
     const { id, questionId } = req.params;
@@ -225,8 +223,12 @@ export const hydrateQuizData = async (filePath: string) => {
     });
 }
 
+/** Helper functions */
 export const correctedTopicString = (topicString: string):string => topicString.toString().split('_')
                                                                     .map(word => word.replace('_', ' '))
                                                                     .join(' ');
 
+const isNumber = (suppliedObject: number | null): suppliedObject is number => { 
+    return suppliedObject != null;
+                                                                    }
 export { quizRouter};
