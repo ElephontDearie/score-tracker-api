@@ -33,7 +33,6 @@ beforeAll(async () => {
 afterAll(async () => {
     await Quiz.deleteMany({});
     await Question.deleteMany({})
-    // await mongoose.connection.dropDatabase();
     await mongoose.connection.close()
     await mongoose.disconnect()
 
@@ -50,8 +49,7 @@ describe('quizRouter GET path tests', () => {
                             expect(Object.keys(res.body)[0]).toContain('quizzes')
                             expect(Array.isArray(res.body.quizzes)).toBe(true);
                           
-                            // expect(res.body).toMatchObject(quizzes:{'message': 'Hello, stranger!'})
-                            done()
+                            done();
                         })
     });
 
@@ -95,7 +93,6 @@ describe('quizRouter DELETE path tests', () => {
 
         await request(server).delete(`/quiz/${deleteTestQuestion.quizId}/${deleteTestQuestion._id}`)
                         .expect(204)
-                        // .end((err, res) => { if (err) throw(err) })
     });
 
 });
@@ -115,13 +112,7 @@ describe('quizRouter POST path tests', () => {
         }
         request(server).post('/quiz/')
                         .send(data)
-                        // .expect(response => console.log(response))
-                        .expect(201, done)
-                        // .end((err, res) => { 
-                        //     if (err) {
-                        //         console.log(res);
-                        //         throw(err) 
-                        //     }});
+                        .expect(201, done);
     });
 
     test('POST /:id posts question with quizId in req.params', (done) => {

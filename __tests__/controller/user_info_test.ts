@@ -17,7 +17,7 @@ beforeAll(async () => {
     server = await serverStartUp(testApp, mongoose, mongooseURI)
 
     testUser = new ScoreTrackerUser({
-        username: 'testUser1',
+        username: 'testUserTestingInfo12',
         password: await encryptPassword(rawPassword),
         email: 'test@testing.com'
     })

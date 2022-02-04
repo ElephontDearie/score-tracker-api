@@ -10,10 +10,8 @@ const localMongoURI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/score_
 export const app = express();
 mongoose.Promise = global.Promise
 
-// mongoose.connection.dropDatabase().then(res => res)
-
 serverStartUp(app, mongoose, localMongoURI).then(() => {
-  hydrateQuizData('../seed_quiz_data.json').then(res => console.log(res)).catch(err => console.log(err))
-  hydrateUserData('../seed_user_data.json').then(res => console.log(res)).catch(err => console.log(err))
+  hydrateQuizData('../seed_quiz_data.json').then(() => {}).catch(err => console.log(err))
+  hydrateUserData('../seed_user_data.json').then(() => {}).catch(err => console.log(err))
   app.listen(port, () => {console.log(`API running on port ${port}`)})
 }).catch(err => err);

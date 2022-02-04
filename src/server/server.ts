@@ -10,6 +10,7 @@ import { ScoreTrackerUser } from "../models/user";
 
 export const serverStartUp = async (expressServer: Express, mongooseAgent: Mongoose, mongooseURI: string): Promise<Express> => {
     await mongooseAgent.connect(mongooseURI);
+        
     expressServer.use(cors())
     expressServer.use(express.json());
     expressServer.use('/', userRouter);

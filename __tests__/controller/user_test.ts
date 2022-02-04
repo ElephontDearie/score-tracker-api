@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import express from 'express';
 import { serverStartUp } from '../../src/server/server';
 import { Express } from 'express-serve-static-core';
-import { ScoreTrackerUser, UserLevel, UserModel } from '../../src/models/user';
+import { ScoreTrackerUser, UserModel } from '../../src/models/user';
 import { encryptPassword } from '../../src/controllers/user';
 
 
@@ -19,7 +19,7 @@ beforeAll(async () => {
 
     
     testUser = new ScoreTrackerUser({
-        username: 'testUser1',
+        username: 'testUser12',
         password: await encryptPassword(rawPassword),
         email: 'test@testing.com'
     })
@@ -73,11 +73,16 @@ describe('userRouter POST path tests', () => {
                     .expect(201, done)
                 
     });
-    test('POST /register returns 409 if user is not new', done => {
-        const data = {username: testUser.username, password: testUser.password, emailAddress: testUser.email} 
-        request(server).post('/register')
-                    .send(data)
-                    .expect(409, done)
+    test('POST /register returns 409 if user is not new', async () => {
+        const data1 = {username: 'helloIAmANewUser', password: 'thisIsMyPassword', email: 'thisIsMyEmail'} 
+        const data2 = {username: 'helloIAmANewUser', password: 'thisIsMyPassword', emailAddress: 'thisIsMyEmail'} 
+
+        const firstUser = new ScoreTrackerUser(data1);
+        await firstUser.save();
+
+        await request(server).post('/register')
+                    .send(data2)
+                    .expect(409)
                 
     });
 

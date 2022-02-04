@@ -1,10 +1,7 @@
 import { Router, Request, Response } from 'express';
-import bcrypt from 'bcrypt';
 import fs from 'fs';
 import path from 'path';
-import { Quiz, QuizModel, QuizTopic, QuizDifficulty, Question } from '../models/quiz';
-import { ScoreTrackerUserInfo } from '../models/user_info';
-import { Score } from '../models/score';
+import { Quiz, QuizTopic, QuizDifficulty, Question } from '../models/quiz';
 
 
 const quizRouter = Router();
@@ -12,6 +9,7 @@ const quizRouter = Router();
 type UpdateQuizPropertyKey = 'name' | 'topic' | 'difficultyLevel';
 
 interface Question {
+    quizId: string;
     question: string;
     options: {[key: string]: string}[];
     answer: {[key: string]: string};
@@ -27,8 +25,6 @@ interface QuizInputType {
 /** router paths to get, post, edit, or delete quizzes */
 
 quizRouter.get('/', async (req: Request, res: Response) => 
-    // await Quiz.deleteMany().then(quizzes => res.status(200).json({quizzes}))
-    //             .catch(err => res.status(500).send(err)))
     Quiz.find().then(quizzes => res.status(200).json({quizzes}))
                 .catch(err => res.status(500).send(err)))
    
@@ -44,10 +40,13 @@ quizRouter.post('/', async (req: Request, res: Response) => {
         await newQuiz.save();
         return res.status(201).json(newQuiz)
     }
-    catch (err) {
-        return res.status(500).send(err)
-    }
+    catch (err: any) {
     
+        console.log(err)
+        return (err  &&  err.code == '11000') ? 
+        res.status(409 ).json({message: 'duplicate question sent', err})
+        : res.status(500).send(err);
+    }
 })
 
 quizRouter.patch('/:id/name', async (req: Request, res: Response) => {
@@ -64,14 +63,13 @@ quizRouter.patch('/:id/name', async (req: Request, res: Response) => {
     } catch (err) {
         return res.status(500).send(err)
     }
-    
 })
 
 quizRouter.patch('/:id/topic', async (req: Request, res: Response) => {
     const { id } = req.params;
     const { newValue } = req.body;
 
-    const retrievedQuiz = await Quiz.findById({_id: id});    // .updateOne({_id: id}, {$set: {propToUpdate: newValue}})
+    const retrievedQuiz = await Quiz.findById({_id: id}); 
 
     if (retrievedQuiz) {
         retrievedQuiz.topic = newValue;
@@ -85,8 +83,7 @@ quizRouter.patch('/:id/level', async (req: Request, res: Response) => {
     const { id } = req.params;
     const { newValue } = req.body;
 
-    const retrievedQuiz = await Quiz.findById({_id: id});    // .updateOne({_id: id}, {$set: {propToUpdate: newValue}})
-
+    const retrievedQuiz = await Quiz.findById({_id: id}); 
     if (retrievedQuiz) {
         retrievedQuiz.difficultyLevel = newValue;
         await retrievedQuiz.save();
@@ -132,44 +129,81 @@ quizRouter.get('/:id', async (req: Request, res: Response) => {
 quizRouter.post('/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
     const { question, answer, options } = req.body;
+    
+
     const newQuestion = new Question({
         quizId: id,
         question,
         answer,
         options
     });
+
     try {
-        await newQuestion.save();
+        const parentQuiz = await Quiz.findById(id);
+
+        parentQuiz?.questions.push(newQuestion);
+
+        await parentQuiz?.save();
         return res.status(201).json(newQuestion);
-    } catch (err) {
-        return res.status(500).send(err);
+    } catch (err: any) {
+        return (err  &&  err.code == '11000') ? 
+        res.status(409 ).json({message: 'duplicate question or quiz name sent', err})
+        : res.status(500).send(err);
     }
 })
 
 quizRouter.delete('/:id/:questionId', async (req: Request, res: Response) => {
     const { id, questionId } = req.params;
-    
-    try {
-        await Question.deleteOne({ _id: questionId })
-        return res.status(204).send()
-    } catch (err) {
-        return res.status(500).send(err)
-    }
+    Quiz.updateOne({
+        '_id': id
+    }, {
+        $pull: {questions: { _id: questionId }}
+    }, function (error: any, result: any) {
+        if (error) {
+            return res.status(500).send(error);
+        } else {
+            return res.status(204).send();
+        }
+    })
 })
+
+const isNumber = (suppliedObject: number | null): suppliedObject is number => { 
+    return suppliedObject != null;
+}
 
 quizRouter.patch('/:id/:questionId/question', async (req: Request, res: Response) => {
     const { id, questionId } = req.params;
     const { newValue } = req.body;
-
-    const retrievedQuestion = await Question.findById({_id: questionId});    // .updateOne({_id: id}, {$set: {propToUpdate: newValue}})
-
-    if (retrievedQuestion) {
-        retrievedQuestion.question = newValue;
-        await retrievedQuestion.save();
-        return res.status(204).send();
-    }
-    return res.status(404).send('The specified Quiz object does not exist.')
+    return patchQuestion(id, questionId, newValue, res, true);
 })
+
+quizRouter.patch('/:id/:questionId/answer', async (req: Request, res: Response) => {
+    const { id, questionId } = req.params;
+    const { newValue } = req.body;
+    return patchQuestion(id, questionId, newValue, res);
+})
+
+const patchQuestion = (id: string, questionId: string, newValue: string, res: Response, isQuestion?: boolean) => {
+    Quiz.findOne({_id: id, 'questions._id': questionId}).then(quiz => {
+        const questionIndex = quiz && quiz.questions.findIndex(q => q._id.toString() == questionId)
+
+        if (quiz && isNumber(questionIndex)) {
+            const questionToPatch =  quiz.questions[(questionIndex)];
+            if (isQuestion) {
+                questionToPatch.question = newValue 
+            } else {
+                const key = Object.keys(newValue)[0];
+                const val = Object.values(newValue)[0];
+
+                questionToPatch.answer = {key: val};
+            }
+           
+            quiz.save().then(() => res.status(204).send()).catch(err => res.status(500).send(err))
+        } else {
+            return res.status(404).send('Question with this id not found');
+        }
+    }).catch(err => res.status(500).send(err))
+}
 
 /** Method to hydrate initial quiz data into the Mongoose database on server start up */
 export const hydrateQuizData = async (filePath: string) => {
@@ -178,10 +212,16 @@ export const hydrateQuizData = async (filePath: string) => {
 
     const parsedArray: QuizInputType[] = JSON.parse(seedData);
     parsedArray.forEach(async quiz => {
-        const newQuiz = new Quiz(quiz);
-        const presentQuiz = newQuiz && await Quiz.findOne({ name: newQuiz.name }).then(res => res);
+        const presentQuiz = await Quiz.findOne({ name: quiz.name });
         if (presentQuiz) return;
-        await newQuiz.save();
+        const newQuiz = new Quiz(quiz);
+
+        newQuiz.questions.forEach(question => {
+            question.quizId = newQuiz._id;
+
+        })
+        await newQuiz.save()
+
     });
 }
 

@@ -12,11 +12,10 @@ export enum QuizDifficulty {
 }
 
 export interface QuizQuestion extends Document {
-    // questionId: Types.ObjectId;
     quizId: string;
     question: string;
     options: { a: string; b: string; c: string; };
-    answer: Answer;
+    answer: {};
     dateAdded: Date;
 }
 
@@ -27,7 +26,6 @@ type Answer = {
 }
 
 export interface QuizModel extends Document {
-    // quizId: Types.ObjectId;
     topic: string;
     name: string;
     difficultyLevel: QuizDifficulty,
@@ -35,8 +33,7 @@ export interface QuizModel extends Document {
 }
 
 const QuizQuestionSchema = new Schema({
-    // questionId: Types.ObjectId,
-    quizId: {type: String, unique: false},
+    quizId: {type: Schema.Types.ObjectId, ref: 'Quiz'},
     question: {type: String, required: true, unique: true},
     options: {type: Array, required: true},
     answer: {type: Map, of: String, required: true},
@@ -44,11 +41,10 @@ const QuizQuestionSchema = new Schema({
 });
 
 const QuizSchema = new Schema({
-    // quizId: Types.ObjectId,
     name: {type: String, required: true, unique: true},
     topic: {type: String, required: true, unique: false},
     difficultyLevel: {type: String, enum: QuizDifficulty, default: QuizDifficulty.Easy},
-    questions: {type: [QuizQuestionSchema]}
+    questions: [QuizQuestionSchema]
 });
 
 

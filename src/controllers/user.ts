@@ -27,8 +27,6 @@ userRouter.post('/login', async (req, res) => {
                 if (user){
                     const newPassword = await encryptPassword(password);
                     const passwordMatchesStored = await bcrypt.compare(password, user.password);
-                    console.log(newPassword);
-                    console.log(user.password);
 
                     if (!passwordMatchesStored) {
                         return res.status(401).send('Incorrect password. Please try again.')
@@ -68,8 +66,6 @@ userRouter.post('/register', async (req: Request, res: Response) => {
             userLevel: user.userLevel
         });
     } catch (err: any) {
-        // err && err.code == 
-        // instanceof MongoError
         const statusCode = err  &&  err.code == '11000' ? 409 : 500;
         return res.status(statusCode).send(err);
     }   
