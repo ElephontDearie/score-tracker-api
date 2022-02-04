@@ -72,10 +72,6 @@ userRouter.post('/register', async (req: Request, res: Response) => {
 
 })
 
-userRouter.get('/register', async (req, res) => {
-    ScoreTrackerUser.find().then(users =>  res.send(users))
-
-})
 
 /** Method to hydrate initial quiz data into the Mongoose database on server start up */
 export const hydrateUserData = async (filePath: string) => {
@@ -84,9 +80,16 @@ export const hydrateUserData = async (filePath: string) => {
 
     const parsedArray: UserInputType[] = JSON.parse(seedData);
     parsedArray.forEach(async user => {
-        const newUser = new ScoreTrackerUser(user);
-        const presentUser = newUser && await ScoreTrackerUser.findOne({ name: newUser.username });
+        
+        const presentUser =  await ScoreTrackerUser.findOne({ name: user.username });
+
         if (presentUser) return;
+        const newUser =  new ScoreTrackerUser({
+            username: user.username,
+            password: await encryptPassword(user.password),
+            email: user.email,
+            userLevel: user.userLevel
+        });
         await newUser.save();
     });
 }
